@@ -1,3 +1,6 @@
+Charisma-struts2
+transfer charisma to jsp with struts2 tags
+========
 Charisma
 ========
 
