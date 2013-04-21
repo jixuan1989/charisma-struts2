@@ -18,7 +18,9 @@ $(document).ready(function(){
 	
 	function switch_theme(theme_name)
 	{
-		$('#bs-css').attr('href','css/bootstrap-'+theme_name+'.css');
+	    var pathName=window.document.location.pathname;
+	    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+		$('#bs-css').attr('href',projectName+'resources/dash/'+'css/bootstrap-'+theme_name+'.css');
 	}
 	
 	//ajax menu checkbox

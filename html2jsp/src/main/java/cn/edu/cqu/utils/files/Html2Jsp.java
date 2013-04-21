@@ -38,8 +38,13 @@ public class Html2Jsp {
 	 */
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-	//	transfer(new File("E:\\data\\code\\github\\charisma\\charisma-struts2"),new File("E:\\data\\code\\github\\charisma\\struts2"));
-		cpFile2(new File("e:\\QQDownload\\AcrobatPro10.0_Web.exe"), new File("e:\\QQDownload\\AcrobatPro10.0_Web_bk.exe"));
+		
+//	Pattern pattern=Pattern.compile("(href|src)=\"([\\S]+)\"");
+//	Matcher matcher=pattern.matcher("href=\"abc\"");
+//	System.out.println(matcher.find());
+//	System.out.println(matcher.group(2));
+			transfer(new File("E:\\data\\code\\github\\charisma\\charisma-struts2"),new File("E:\\data\\code\\github\\charisma\\struts2"));
+	//	cpFile2(new File("e:\\QQDownload\\AcrobatPro10.0_Web.exe"), new File("e:\\QQDownload\\AcrobatPro10.0_Web_bk.exe"));
 	}
 
 	public static void transfer(File srcFolder,File destFolder){
@@ -172,21 +177,21 @@ public class Html2Jsp {
 		FileWriter fWriter=new FileWriter(dest);
 		String line;
 		fWriter.write("<%@ page language=\"java\" contentType=\"text/html; charset=utf-8\"%>\n<%@taglib prefix=\"s\" uri=\"/struts-tags\"%>\n");
-		Pattern pattern=Pattern.compile("href=\"([\\S&&[^\"]]+)\"");
-
+		Pattern pattern=Pattern.compile("(href|src)=\"([\\S&&[^\"]]+)\"");
+		
 		while((line=reader.readLine())!=null){
 			Matcher matcher=pattern.matcher(line);
 			String newline="";
 			if( matcher.find()){
 				int start=0;
 				int end=line.length();
-				newline=line.substring(start,matcher.start(1));
-				end=matcher.end(1);
-				newline+=getString(matcher.group(1));
+				newline=line.substring(start,matcher.start(2));
+				end=matcher.end(2);
+				newline+=getString(matcher.group(2));
 				while(matcher.find()){
-					newline+=line.substring(end,matcher.start(1));
-					newline+=getString(matcher.group(1));
-					end=matcher.end(1);
+					newline+=line.substring(end,matcher.start(2));
+					newline+=getString(matcher.group(2));
+					end=matcher.end(2);
 				}
 				newline+=line.substring(end,line.length())+"\n";
 			}else{
@@ -201,6 +206,11 @@ public class Html2Jsp {
 		if(group.startsWith("css/")||group.startsWith("js/")||group.startsWith("misc/")||group.startsWith("img/")||group.startsWith("php-version/")){
 			String result="<s:url value=\"/resources/dash/";
 			result+=group;
+			result+="\"/>";
+			return result;
+		}else if(group.endsWith(".html")){
+			String result="<s:url action=\"";
+			result+=group.substring(0,group.indexOf(".html"));
 			result+="\"/>";
 			return result;
 		}
