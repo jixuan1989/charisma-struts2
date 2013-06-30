@@ -1,7 +1,8 @@
 Charisma-struts2
 transfer charisma to jsp with struts2 tags
+将charisma的代码给翻译成jsp格式
 ========
-Charisma
+Charisma是一个jquery的后台模板 动态而且挺漂亮。
 ========
 
 #### free, premium quality, responsive, multiple skin admin template.
